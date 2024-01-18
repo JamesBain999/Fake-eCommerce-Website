@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Category Average Prices Chart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+    canvas {
+        margin-bottom: 40px;
+    }
+    h1 {
+        margin-top: 20px;
+    }
+    </style>
+</head>
+
+<body style="margin-bottom: 60px;">
+    <!-- Navbar (same as your main page) -->
+    <nav class="navbar bg-body-tertiary fixed-bottom" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand icon-link icon-link-hover" style="--bs-icon-link-transform: translate3d(0, -.125rem, 0);" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-balloon-heart" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="m8 2.42-.717-.737c-1.13-1.161-3.243-.777-4.01.72-.35.685-.451 1.707.236 3.062C4.16 6.753 5.52 8.32 8 10.042c2.479-1.723 3.839-3.29 4.491-4.577.687-1.355.587-2.377.236-3.061-.767-1.498-2.88-1.882-4.01-.721zm-.49 8.5c-10.78-7.44-3-13.155.359-10.063q.068.062.132.129.065-.067.132-.129c3.36-3.092 11.137 2.624.357 10.063l.235.468a.25.25 0 1 1-.448.224l-.008-.017c.008.11.02.202.037.29.054.27.161.488.419 1.003.288.578.235 1.15.076 1.629-.157.469-.422.867-.588 1.115l-.004.007a.25.25 0 1 1-.416-.278c.168-.252.4-.6.533-1.003.133-.396.163-.824-.049-1.246l-.013-.028c-.24-.48-.38-.758-.448-1.102a3 3 0 0 1-.052-.45l-.04.08a.25.25 0 1 1-.447-.224l.235-.468ZM6.013 2.06c-.649-.18-1.483.083-1.85.798-.131.258-.245.689-.08 1.335.063.244.414.198.487-.043.21-.697.627-1.447 1.359-1.692.217-.073.304-.337.084-.398"/>
+            </svg>the GARMENT BAR</a>
+            <a class="navbar-brand icon-link icon-link-hover" style="--bs-icon-link-transform: translate3d(0, -.125rem, 0);"href="Ecommerce.html">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-balloon-heart" viewBox="0 0 16 16">
+                </svg>return HOME</a>
+        </div>
+    </nav>
+
+    <!-- Chart container -->
+    <div class="container" style="max-width: 700px;">
+        <h1 class="text-center">AVERAGE PRICES in EACH CATEGORY</h1>
+        <canvas id="categoryChart" width="400" height="400"></canvas>
+        <p class="text-center">"...It was our mission in 2024 to lower our prices and as we value our loyal paying customers..."</p>
+    </div>
+
+    <script>
+        async function getAveragePrices() {
+            const response = await fetch('https://fakestoreapiserver.reactbd.com/products');
+            const data = await response.json();
+            return data;
+        }
+
+        async function createChart() {
+            const ctx = document.getElementById("categoryChart").getContext("2d")
+            const averagePricesData = await getAveragePrices();
+            let averageWomen = 0
+            let womenCount = 0
+            let averageMen = 0
+            let menCount = 0
+            let averageKids = 0
+            let kidsCount = 0
+            averagePricesData.forEach(product => {
+            if (product.category == "women"){
+                womenCount += 1
+                averageWomen += parseFloat(product.price)
+            } 
+            if (product.category == "men"){
+                menCount += 1
+                averageMen += parseFloat(product.price)
+            }
+            if (product.category == "kids"){
+                kidsCount += 1
+                averageKids += parseFloat(product.price)
+            }
+            });
+            console.log(averageWomen)
+            let labelsChart = averagePricesData.map((product) => product.category.toUpperCase())
+            let uniqueLabels = [...new Set(labelsChart)]
+           new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: uniqueLabels,
+                datasets: [{
+                    label: 'Average Price',
+                    data: [averageWomen / womenCount, averageMen / menCount, averageKids / kidsCount],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                plugins: {
+                    datalabels: {
+                        formatter: (value, ctx) => {
+                            return value.toFixed(2); // Format the value as needed
+                        },
+                        color: '#fff', // Set the color of the labels
+                        backgroundColor: '#000', // Set the background color of the labels
+                        borderRadius: 4, // Set the border radius of the labels
+                        display: 'auto' // Set when to display the labels (auto, always, etc.)
+                    }
+                }
+            }
+        });
+        }
+
+        createChart();
+    </script>
+</body>
+
+</html>
