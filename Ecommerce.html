@@ -8,7 +8,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
-    <style>   
+    <style>
+    html {
+        overflow-y: scroll;
+    }  
+
     .card img {
         height: 300px; 
         object-fit: cover; 
@@ -76,10 +80,9 @@
                     <li><a onclick="sortCardsAlphabeticallyDsc()" class="dropdown-item" href="#">Alphabetical (z-a)</a></li>
                 </ul>
             </div>
-            <form class="d-flex" onsubmit="return performSearch()">
+            <form class="d-flex">
                 <input class="form-control me-2" type="search" id="searchInput" placeholder="Search"
                     aria-label="Search">
-                <button class="btn btn-outline-secondary" type="submit">Search</button>
             </form>
         </div>
     </nav>
@@ -96,6 +99,7 @@
                 </div>
                 <p class="card-desc"></p>
                 <p class="card-price"></p>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="${arr.id}">Click to See More</button>
             </div>
         </div>
     </template>
@@ -235,6 +239,10 @@
                 filteredCards.forEach((card) => initializeCards(card));
             }
         }
+
+        document.getElementById('searchInput').addEventListener('input', function () {
+            performSearch();
+        });
 
         function performSearch() {
             const searchInput = document.getElementById('searchInput').value.toLowerCase();
