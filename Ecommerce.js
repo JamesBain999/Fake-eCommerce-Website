@@ -54,11 +54,15 @@ function addDropdowns(arr) {
         uniqueCategories.add(arr.category);
     }
 }
+
+//Function to first initialize the modals using templates
 function initializeModals(arr) {
     const template = document.getElementById('JSON-modal-template').content.cloneNode(true);
     template.querySelector('.card-img-top').src = arr.image;
     //Sets title for template
     template.querySelector('.modal-title').innerText = arr.title;
+    //Sets category for template
+    template.querySelector('.modal-category').innerText = arr.category.toUpperCase();
     //Sets description for template
     template.querySelector('.modal-desc').innerText = arr.description;
     //Sets price for template

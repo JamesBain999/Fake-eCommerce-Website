@@ -29,7 +29,7 @@
                     </svg>Our Progress
                 </a>
                 <div class="dropdown dropup">
-                    <button class="btn btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border: 0;">Sort By</button>
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border: 0;">Sort By</button>
                     <ul class="dropdown-menu">
                         <li><a onclick="sortCardsPriceFromHighToLow()" class="dropdown-item" href="#">Price (high to low)</a></li>
                         <li><a onclick="sortCardsPriceFromLowToHigh()" class="dropdown-item" href="#">Price (low to high)</a></li>
@@ -61,12 +61,12 @@
                     <p class="card-desc"></p>
                     <p class="card-price"></p>
                     <!-- Button trigger modal -->
-                    <button id="card-button" type="button" class="btn btn-primary" data-bs-toggle="modal">demo modal</button>
+                    <button id="card-button" type="button" class="btn btn-outline-secondary" data-bs-toggle="modal">See More</button>
                 </div>
             </div>
         </template>
 
-        <!-- Container housing cards when initialized -->
+        <!-- Container thats housing cards when initialized -->
         <div class="container">
             <div id="arr-list" class="row"></div>
         </div>
@@ -77,14 +77,17 @@
                 <div class="modal-dialog modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                            <div class="modal-title-category">
+                                <h1 class="modal-title fs-4" id="exampleModalLabel">Modal title</h1>
+                                <h1 class="modal-category fs-6">Modal category</h1>
+                            </div>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body inline-elements">
                             <img src="..." class="card-img-top" alt="Image failed to load">
                             <p class="modal-desc"></p>
                         </div>
-                        <div class="modal-footer">
+                        <div class="modal-footer justify-content-center">
                             <p class="modal-price"></p>
                         </div>
                     </div>
@@ -92,7 +95,7 @@
             </div>
         </template>
 
-        <!-- Container housing cards when initialized -->
+        <!-- Container thats housing modals when initialized -->
         <div class="container">
             <div id="modal-list" class="row"></div>
         </div>
