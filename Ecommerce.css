@@ -1,0 +1,43 @@
+html {
+        overflow-y: scroll;
+    }  
+
+.card img {
+    height: 300px; 
+    object-fit: cover; 
+    margin-top: 10px; 
+    border-radius: 10px;
+}
+
+.card-body .card-title {
+    font-weight: bolder;
+}
+
+.card-body .card-desc {
+    font-size: small;
+}
+
+.card-body .card-price {
+    margin-bottom: 0;
+}
+#arr-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card-body {
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.inline-elements {
+    display: flex;
+    align-items: center;
+}
+
+.card-icon {
+    margin-right: 8px;
+    margin-bottom: 10px;
+}
