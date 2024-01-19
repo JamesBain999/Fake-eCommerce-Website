@@ -36,6 +36,9 @@ function initializeCards(arr) {
     template.querySelector('.card-price').innerText = "$" + arr.price;
     //Sets category as an attribute of the template
     template.querySelector('.card').setAttribute('data-category', arr.category);
+    //Sets category as an attribute of the template
+    template.querySelector('#card-button').setAttribute('data-bs-target', '#modal_' + arr._id);
+
     //Creates children inside of #arr-list (creates the cards dynamically)
     document.querySelector('#arr-list').appendChild(template);
 }
@@ -51,6 +54,20 @@ function addDropdowns(arr) {
         uniqueCategories.add(arr.category);
     }
 }
+function initializeModals(arr) {
+    const template = document.getElementById('JSON-modal-template').content.cloneNode(true);
+    template.querySelector('.card-img-top').src = arr.image;
+    //Sets title for template
+    template.querySelector('.modal-title').innerText = arr.title;
+    //Sets description for template
+    template.querySelector('.modal-desc').innerText = arr.description;
+    //Sets price for template
+    template.querySelector('.modal-price').innerText = "$" + arr.price;
+    //Sets category as an attribute of the template
+    template.querySelector('.modal').setAttribute('id', 'modal_' + arr._id);
+    //Creates children inside of #arr-list (creates the cards dynamically)
+    document.querySelector('#modal-list').appendChild(template);
+}
 
 //Function that is actually displaying the information to the html document
 async function initialize() {
@@ -58,6 +75,7 @@ async function initialize() {
     originalData = [...arrData];
     arrData.forEach((arr) => initializeCards(arr));
     arrData.forEach((arr) => addDropdowns(arr));
+    arrData.forEach((arr) => initializeModals(arr));
 }
 
 //Sorts cards alphabetically
